@@ -1,40 +1,50 @@
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 
+const ServicesCard = ({ service, index }) => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [visible, setVisible] = useState(false);
+  const divRef = useRef(null);
+  const Icon = service.icon;
 
-const ServicesCard = ({service, index}) => {
-
-    const [position, setPosition] = useState({x: 0, y: 0})
-    const [visible, setVisible] = useState(false);
-
-    const divRef = useRef(null)
-
-    const handelMouseMove = (e) => {
-        const bounds = divRef.current.getBoundingClientRect();
-        setPosition({x: e.clientX - bounds.left, y: e.clientY - bounds.top})
-    }
+  const handleMouseMove = (e) => {
+    const bounds = divRef.current.getBoundingClientRect();
+    setPosition({ x: e.clientX - bounds.left, y: e.clientY - bounds.top });
+  };
 
   return (
     <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, delay: index * 0.2 }}
-    viewport={{once: true}}
-    className="relative overflow-hidden max-w-lg m-2 sm:m-4 rounded-xl border border-gray-200 dark:border-gray-700 
-       shadow-2xl shadow-gray-100 dark:shadow-white/10" onMouseEnter={()=> setVisible(true)} onMouseLeave={()=> setVisible(false)} ref={divRef} onMouseMove={handelMouseMove}>
-         
-         <div className={`pointer-events-none blur-2xl rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 w-[300px] h-[300px] absolute z-0 transition-opacity duration-500 mix-blend-lighten ${visible ? 'opacity-70' : 'opacity-0'} `} style={{ top: position.y - 150, left: position.x - 150}} />
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true }}
+      ref={divRef}
+      onMouseEnter={() => setVisible(true)}
+      onMouseLeave={() => setVisible(false)}
+      onMouseMove={handleMouseMove}
+      className={`glass group relative overflow-hidden rounded-3xl p-7 transition-colors duration-300 hover:border-[#29A6FF]/40 ${service.wide ? 'md:col-span-2' : ''}`}
+    >
+      <div
+        className={`pointer-events-none absolute z-0 h-[320px] w-[320px] rounded-full bg-[radial-gradient(closest-side,rgba(41,166,255,0.35),rgba(139,107,255,0.15),transparent)] transition-opacity duration-500 ${visible ? 'opacity-100' : 'opacity-0'}`}
+        style={{ top: position.y - 160, left: position.x - 160 }}
+      />
 
-            <div className="flex items-center gap-10 p-8 hover:p-7.5 hover:m-0.5 transition-all rounded-[10px] bg-white dark:bg-gray-900 z-10 relative">
-
-                <div className="bg-gray-100 dark:bg-gray-700 rounded-full">
-                    <img src={service.icon} alt="" className="max-w-24 bg-white dark:bg-gray-900 rounded-full m-2"/>
-                </div>
-                <div className="flex-1">
-                    <h3 className="font-bold">{service.title}</h3>
-                    <p className="text-sm mt-2">{service.description}</p>
-                </div>
-            </div>
+      <div className="relative z-10">
+        <div className="icon-tile h-14 w-14 transition-transform duration-300 group-hover:scale-110">
+          <Icon set="bulk" size={28} primaryColor="#6BEBFF" secondaryColor="#8B6BFF" />
+        </div>
+        <h3 className="mt-6 text-xl font-bold tracking-[-0.02em] text-white">{service.title}</h3>
+        <p className="mt-3 text-sm leading-6 text-slate-400">{service.description}</p>
+        {service.tags && (
+          <div className="mt-5 flex flex-wrap gap-2">
+            {service.tags.map((tag) => (
+              <span key={tag} className="rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1 text-xs font-semibold text-slate-300">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
     </motion.div>
   );
 };

@@ -1,134 +1,96 @@
 import React from "react";
 import assets from "../assets/assets";
 import { motion } from "framer-motion";
+import { ArrowRight } from './icons';
+import Logo from "./Logo";
 
-const Footer = ({ theme }) => {
+const socials = [
+  { icon: assets.linkedin_icon, label: "LinkedIn" },
+  { icon: assets.twitter_icon, label: "Twitter" },
+  { icon: assets.instagram_icon, label: "Instagram" },
+  { icon: assets.facebook_icon, label: "Facebook" },
+];
+
+const Footer = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="bg-slate-50 dark:bg-gray-900 pt-10 sm:pt-10 mt-20 sm:mt-40 px-4 sm:px-10 lg:px-24 xl:px-40"
-    >
-      {/* Footer Top */}
-      <div className="flex justify-between lg:items-center max-lg:flex-col gap-10">
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="space-y-5 text-sm text-gray-700 dark:text-gray-400"
-        >
-          <img
-            src={theme === "dark" ? assets.logo_dark : assets.logo}
-            alt=""
-            className="w-32 sm:w-44"
-          />
-          <p className="max-w-md">
-            From strategy to execution, we craft digital solutions that move
-            your business forward.
-          </p>
-
-          <ul className="flex gap-8">
-            <li>
-              <a className="hover:text-primary" href="#hero">
-                Home
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-primary" href="#services">
-                Services
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-primary" href="#our-work">
-                Our work
-              </a>
-            </li>
-            <li>
-              <a className="hover:text-primary" href="#contact-us">
-                Contact Us
-              </a>
-            </li>
-          </ul>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 , delay: 0.3}}
-          viewport={{ once: true }}
-          className="text-gray-600 dark:text-gray-400"
-        >
-          <h3 className="font-semibold">Subscribe to our newsletter</h3>
-          <p className="text-sm mt-2 mb-6">
-            The latest news, articles, and resources, sent to your inbox weekly.
-          </p>
-
-          <div className="flex gap-2 text-sm">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="w-full p-3 text-sm outline-none rounded dark:text-gray-200 bg-transparent border border-gray-300 dark:border-gray-500"
-            />
-            <button className="bg-primary text-white rounded px-6">
-              Susbcribe
-            </button>
-          </div>
-        </motion.div>
-      </div>
-      <hr className="border-gray-300 dark:border-gray-600 my-6" />
-
-      {/* footer bottom */}
+    <footer className="relative overflow-hidden px-4 pb-10 pt-8 sm:px-8">
+      {/* CTA band */}
       <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.4}}
-      viewport={{once: true}}
-      className="pb-6 text-sm text-gray-500 flex justify-center sm:justify-between gap-4 flex-wrap">
-        <p>Copyright 2025 © agency.ai - All Right Reserved.</p>
-        <p>
-          <a href="https://amdadislam.netlify.app/">Developed By Amdad Islam</a>
-        </p>
-        <div className="flex items-center justify-between gap-4">
-          <img src={assets.facebook_icon} alt="" />
-          <img src={assets.twitter_icon} alt="" />
-          <img src={assets.instagram_icon} alt="" />
-          <img src={assets.linkedin_icon} alt="" />
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        viewport={{ once: true }}
+        className="relative mx-auto max-w-6xl overflow-hidden rounded-[32px] border border-white/10 bg-[linear-gradient(135deg,#0B2A4A_0%,#122251_45%,#2A1760_100%)] px-6 py-14 text-center sm:px-12"
+      >
+        <div className="bg-grid pointer-events-none absolute inset-0 opacity-70" />
+        <div className="aurora-blob animate-aurora-a -right-20 -top-20 h-72 w-72 bg-[#8B6BFF]/40" />
+        <div className="aurora-blob animate-aurora-b -bottom-24 -left-16 h-72 w-72 bg-[#29A6FF]/40" />
+        <div className="relative">
+          <h3 className="mx-auto max-w-2xl text-3xl font-extrabold tracking-[-0.04em] text-white sm:text-5xl">
+            Ready to put AI to work?
+          </h3>
+          <p className="mx-auto mt-4 max-w-xl text-slate-300">
+            Tell us where the friction is. We’ll show you where technology can create real value.
+          </p>
+          <a href="#contact-us" className="btn-primary mt-8 px-7 py-3.5 text-sm sm:text-base">
+            Book a strategy call
+            <ArrowRight set="light" size={20} primaryColor="#05080F" />
+          </a>
         </div>
       </motion.div>
-    </motion.div>
+
+      <div className="mx-auto mt-16 flex max-w-6xl flex-col justify-between gap-10 lg:flex-row">
+        <div className="max-w-sm space-y-5">
+          <Logo markClassName="h-12 w-12" textClassName="text-2xl" />
+          <p className="text-sm leading-6 text-slate-400">
+            GhostGrid helps businesses and organizations find where technology can create real value, then turn that direction into implemented systems.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-10 text-sm sm:grid-cols-3">
+          <div>
+            <p className="font-bold text-white">Company</p>
+            <ul className="mt-4 space-y-3 text-slate-400">
+              <li><a className="transition hover:text-white" href="#about">About</a></li>
+              <li><a className="transition hover:text-white" href="#why-ghostgrid">Why GhostGrid</a></li>
+              <li><a className="transition hover:text-white" href="#contact-us">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <p className="font-bold text-white">Services</p>
+            <ul className="mt-4 space-y-3 text-slate-400">
+              <li><a className="transition hover:text-white" href="#services">AI automation</a></li>
+              <li><a className="transition hover:text-white" href="#services">Custom software</a></li>
+              <li><a className="transition hover:text-white" href="#services">Data & insight</a></li>
+            </ul>
+          </div>
+          <div>
+            <p className="font-bold text-white">Work</p>
+            <ul className="mt-4 space-y-3 text-slate-400">
+              <li><a className="transition hover:text-white" href="#our-work">Solutions</a></li>
+              <li><a className="transition hover:text-white" href="#services">Our approach</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-12 flex max-w-6xl flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-6 text-sm text-slate-500 sm:flex-row">
+        <p>© {new Date().getFullYear()} GhostGrid. All rights reserved.</p>
+        <div className="flex items-center gap-2">
+          {socials.map(({ icon, label }) => (
+            <a
+              key={label}
+              href="#"
+              aria-label={label}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] opacity-70 transition hover:border-[#29A6FF]/50 hover:opacity-100"
+            >
+              <img src={icon} alt="" className="h-4 w-4" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </footer>
   );
 };
 
 export default Footer;
-
-{
-  /* <footer className="px-6 md:px-16 lg:px-24 xl:px-32 pt-8 w-full text-gray-500">
-            <div className="flex flex-col md:flex-row justify-between w-full gap-10 border-b border-gray-500/30 pb-6">
-                <div className="md:max-w-96">
-                    <img className="h-9" src={assets.logo} alt="dummyLogoDark" />
-                    <p className="mt-6 text-sm">
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                    </p>
-                </div>
-                <div className="flex-1 flex items-start md:justify-end gap-20">
-                    <div>
-                        <h2 className="font-semibold text-gray-800 mb-5">Subscribe to our newsletter</h2>
-                        <div className="text-sm space-y-2">
-                            <p>The latest news, articles, and resources, sent to your inbox weekly.</p>
-                            <div className="flex items-center gap-2 pt-4">
-                                <input className="border border-gray-500/30 placeholder-gray-500 focus:ring-2 ring-indigo-600 outline-none w-full max-w-64 h-9 rounded px-2" type="email" placeholder="Enter your email" />
-                                <button className="bg-blue-600 w-24 h-9 text-white rounded">Subscribe</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <p className="pt-4 text-center text-xs md:text-sm pb-5">
-                Copyright 2024 © <a href="https://prebuiltui.com">PrebuiltUI</a>. All Right Reserved.
-            </p>
-        </footer> */
-}

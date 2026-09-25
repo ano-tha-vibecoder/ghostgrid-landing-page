@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="GhostGrid">
+  <title>GhostGrid</title>
+  <defs>
+    <linearGradient id="gg-stroke" x1="8" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6BEBFF"/>
+      <stop offset="0.45" stop-color="#29A6FF"/>
+      <stop offset="1" stop-color="#7C5CFF"/>
+    </linearGradient>
+    <linearGradient id="gg-text" x1="331.65999999999997" y1="0" x2="467.89199999999994" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#29A6FF"/>
+      <stop offset="1" stop-color="#8B6BFF"/>
+    </linearGradient>
+    <radialGradient id="gg-core" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.55" stop-color="#9BEFFF"/>
+      <stop offset="1" stop-color="#29A6FF"/>
+    </radialGradient>
+    <filter id="gg-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#05080F"/>
+    <path d="M54.5 21.5 L32 8.5 L9.5 21.5 V42.5 L32 55.5 L54.5 42.5 V32 H40" fill="none" stroke="url(#gg-stroke)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="30.5" cy="32" r="4.6" fill="url(#gg-core)" filter="url(#gg-glow)"/>
+</svg>

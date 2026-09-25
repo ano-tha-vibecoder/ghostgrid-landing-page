@@ -1,74 +1,111 @@
-import React, { useState } from "react";
-import assets from "../assets/assets";
-import ThemeToggleBtn from "./ThemeToggleBtn";
-import { motion } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, Category, CloseSquare } from './icons';
+import Logo from "./Logo";
 
-const Navbar = ({ theme, setTheme }) => {
+const links = [
+  { href: "#hero", label: "Home" },
+  { href: "#services", label: "Capabilities" },
+  { href: "#our-work", label: "Solutions" },
+  { href: "#why-ghostgrid", label: "Why GhostGrid" },
+  { href: "#about", label: "About" },
+];
+
+const Navbar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -50 }}
+    <motion.header
+      initial={{ opacity: 0, y: -40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="flex justify-between items-center px-4 sm:px-12 lg:px-24 xl:px-40 py-4 sticky top-0 z-20 backdrop-blur-xl font-medium bg-white/50 dark:bg-gray-900/70"
+      className={`sticky top-0 z-40 transition-all duration-300 ${
+        scrolled ? "border-b border-white/[0.06] bg-[#05080F]/75 backdrop-blur-xl" : "border-b border-transparent"
+      }`}
     >
-      {/* Logo */}
-      <img
-        src={theme === "dark" ? assets.logo_dark : assets.logo}
-        alt="logo"
-        className="w-32 sm:w-40"
-      />
-
-      {/* Sidebar / Menu Links */}
-      <div
-        className={`text-gray-700 dark:text-white sm:text-sm fixed sm:static top-0 bottom-0 right-0 h-full sm:h-auto flex flex-col sm:flex-row sm:items-center gap-5 sm:bg-transparent transition-all duration-300
-          ${sidebarOpen ? "w-60 pl-10 bg-primary text-white pt-20" : "w-0 overflow-hidden sm:w-auto sm:pl-0 sm:pt-0"}`}
-      >
-        {/* Close Button (Mobile Only) */}
-        <img
-          src={assets.close_icon}
-          alt="close"
-          className="w-5 absolute right-4 top-4 sm:hidden cursor-pointer"
-          onClick={() => setSidebarOpen(false)}
-        />
-
-        <a onClick={() => setSidebarOpen(false)} href="#" className="sm:hover:border-b">
-          Home
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-8">
+        <a href="#hero" aria-label="GhostGrid home" className="transition hover:opacity-90">
+          <Logo />
         </a>
-        <a onClick={() => setSidebarOpen(false)} href="#services" className="sm:hover:border-b">
-          Services
-        </a>
-        <a onClick={() => setSidebarOpen(false)} href="#our-work" className="sm:hover:border-b">
-          Our Work
-        </a>
-        <a onClick={() => setSidebarOpen(false)} href="#contact-us" className="sm:hover:border-b">
-          Contact Us
-        </a>
-      </div>
 
-      {/* Right Side Controls */}
-      <div className="flex items-center gap-2 sm:gap-4">
-        {/* Theme Toggle */}
-        <ThemeToggleBtn theme={theme} setTheme={setTheme} />
+        <div className="glass hidden items-center gap-1 rounded-full px-2 py-1.5 text-sm text-slate-300 lg:flex">
+          {links.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="rounded-full px-4 py-2 transition hover:bg-white/[0.06] hover:text-white"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
 
-        {/* Mobile Menu Button */}
-        <img
-          src={theme === "dark" ? assets.menu_icon_dark : assets.menu_icon}
-          alt="menu"
-          onClick={() => setSidebarOpen(true)}
-          className="w-8 sm:hidden cursor-pointer"
-        />
+        <div className="flex items-center gap-3">
+          <a href="#contact-us" className="btn-primary hidden px-5 py-2.5 text-sm sm:inline-flex">
+            Book a strategy call
+            <ArrowRight set="light" size={18} primaryColor="#05080F" />
+          </a>
 
-        {/* Contact Button (hidden on small screens) */}
-        <a
-          href="#contact-us"
-          className="text-sm hidden sm:flex items-center gap-2 bg-primary text-white px-6 py-2 rounded-full cursor-pointer hover:scale-105 transition-transform"
-        >
-          Contact <img src={assets.arrow_icon} width={14} alt="arrow" />
-        </a>
-      </div>
-    </motion.div>
+          <button
+            type="button"
+            aria-label="Open menu"
+            onClick={() => setSidebarOpen(true)}
+            className="glass flex h-11 w-11 items-center justify-center rounded-full lg:hidden"
+          >
+            <Category set="bulk" size={22} primaryColor="#29A6FF" secondaryColor="#8B6BFF" />
+          </button>
+        </div>
+      </nav>
+
+      <AnimatePresence>
+        {sidebarOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSidebarOpen(false)}
+              className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+            />
+            <motion.aside
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 28, stiffness: 260 }}
+              className="fixed bottom-0 right-0 top-0 z-50 flex w-72 flex-col gap-2 border-l border-white/10 bg-[#070B14]/95 p-6 backdrop-blur-xl lg:hidden"
+            >
+              <div className="mb-6 flex items-center justify-between">
+                <Logo markClassName="h-8 w-8" textClassName="text-lg" />
+                <button type="button" aria-label="Close menu" onClick={() => setSidebarOpen(false)}>
+                  <CloseSquare set="light" size={26} primaryColor="#94A3B8" />
+                </button>
+              </div>
+              {links.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setSidebarOpen(false)}
+                  className="rounded-xl px-4 py-3 text-base text-slate-200 transition hover:bg-white/[0.05] hover:text-white"
+                >
+                  {link.label}
+                </a>
+              ))}
+              <a href="#contact-us" onClick={() => setSidebarOpen(false)} className="btn-primary mt-4 px-5 py-3 text-sm">
+                Book a strategy call
+              </a>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 };
 
