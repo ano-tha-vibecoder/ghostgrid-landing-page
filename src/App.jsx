@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useEffect, useRef } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import { Toaster } from 'react-hot-toast'
+import ChatLauncher from './components/chat/ChatLauncher'
 
 // Below-the-fold sections load as separate chunks after the hero renders
 const TrustedBy = lazy(() => import('./components/TrustedBy'))
@@ -82,6 +83,8 @@ const App = () => {
           <Footer />
         </Suspense>
       </div>
+
+      <ChatLauncher />
 
       <div
         ref={outlineRef}

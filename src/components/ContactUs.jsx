@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Title from "./Title";
 import toast from "react-hot-toast";
+import { submitToWeb3Forms } from "../lib/web3forms";
 import { motion } from "framer-motion";
 import { User, Message, Send, TimeCircle, ShieldDone, Calendar } from './icons';
 
@@ -22,23 +23,10 @@ const ContactUs = () => {
     event.preventDefault();
     setSending(true);
 
-    const formData = new FormData(event.target);
-    formData.append("access_key", "2738e7c3-8bc9-46d4-acac-071c74d03fa6");
-
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        toast.success("Thanks. Your message is on its way.");
-        event.target.reset();
-      } else {
-        toast.error(data.message || "Something went wrong. Please try again.");
-      }
+      await submitToWeb3Forms(new FormData(event.target));
+      toast.success("Thanks. Your message is on its way.");
+      event.target.reset();
     } catch (error) {
       toast.error(error.message || "Unable to send your message right now.");
     } finally {
