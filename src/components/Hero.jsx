@@ -1,43 +1,6 @@
-import React, { Suspense, lazy, useEffect, useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, Discovery, Activity, Document, Chat, ShieldDone, TickSquare } from './icons'
-
-// three.js globe ships in its own chunk and loads after first paint
-const GlobeBackground = lazy(() => import('./GlobeBackground'))
-
-const GlobeFallback = () => (
-  <div className="aspect-square w-full rounded-full bg-[radial-gradient(circle_at_40%_35%,rgba(41,166,255,0.18),rgba(7,22,48,0.6)_55%,transparent_70%)]" />
-)
-
-// Software WebGL (no GPU acceleration) can't animate the globe smoothly, so those visitors get the static fallback
-const hasHardwareWebGL = () => {
-  try {
-    const gl = document.createElement('canvas').getContext('webgl')
-    if (!gl) return false
-    const ext = gl.getExtension('WEBGL_debug_renderer_info')
-    const renderer = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : ''
-    gl.getExtension('WEBGL_lose_context')?.loseContext()
-    return !/swiftshader|llvmpipe|software|basic render/i.test(renderer)
-  } catch {
-    return false
-  }
-}
-
-const useDeferredGlobe = () => {
-  const [ready, setReady] = useState(false)
-  useEffect(() => {
-    const conn = navigator.connection
-    if (conn?.saveData || /2g/.test(conn?.effectiveType ?? '') || !hasHardwareWebGL()) return
-    const start = () => setReady(true)
-    if ('requestIdleCallback' in window) {
-      const id = requestIdleCallback(start, { timeout: 1500 })
-      return () => cancelIdleCallback(id)
-    }
-    const t = setTimeout(start, 400)
-    return () => clearTimeout(t)
-  }, [])
-  return ready
-}
 
 const fadeUp = (delay) => ({
   initial: { opacity: 0, y: 24 },
@@ -163,8 +126,6 @@ const Console = () => (
 )
 
 const Hero = () => {
-  const showGlobe = useDeferredGlobe()
-
   return (
     <section id="hero" className="relative isolate -mt-[76px] overflow-hidden px-4 pb-24 pt-40 text-center sm:px-8">
       {/* Vibrant backdrop */}
@@ -175,19 +136,7 @@ const Hero = () => {
         <div className="aurora-blob animate-aurora-b right-[22%] top-[38%] h-[360px] w-[360px] bg-[radial-gradient(closest-side,rgba(224,98,255,0.45),transparent)]" />
         <div className="bg-grid absolute inset-0" />
 
-        {/* 3D globe with data arcs between continents */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute left-1/2 top-[110px] w-[165vw] max-w-[1180px] -translate-x-1/2 sm:top-[70px] sm:w-[125vw]"
-        >
-          <Suspense fallback={<GlobeFallback />}>{showGlobe ? <GlobeBackground /> : <GlobeFallback />}</Suspense>
-        </motion.div>
-
-        {/* keep the headline readable over the globe */}
-        <div className="absolute inset-x-0 top-0 h-[1000px] bg-[radial-gradient(ellipse_38%_30%_at_50%_42%,rgba(5,8,15,0.72),rgba(5,8,15,0.25)_65%,transparent)]" />
-        <div className="absolute inset-x-0 bottom-0 h-[38%] bg-gradient-to-b from-transparent via-[#05080F]/70 to-[#05080F]" />
+        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-b from-transparent to-[#05080F]" />
       </div>
 
       <div className="mx-auto flex max-w-7xl flex-col items-center">

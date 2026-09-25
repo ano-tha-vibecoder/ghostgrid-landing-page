@@ -7,7 +7,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        // Long-lived vendor chunks; the three.js globe is split out separately via React.lazy
+        // Long-lived vendor chunks so app changes don't invalidate cached libraries
         manualChunks(id) {
           if (!id.includes('node_modules')) return
           if (/[\/]node_modules[\/](react|react-dom|scheduler)[\/]/.test(id)) return 'react'
