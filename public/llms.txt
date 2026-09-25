@@ -1,0 +1,23 @@
+# GhostGrid
+
+> GhostGrid is an AI and technology consulting company serving businesses and organizations in Zimbabwe and across Africa. It finds where AI, automation and custom software create real operational value, then designs, builds and deploys those systems with the client's team.
+
+## Services
+- AI & workflow automation: AI agents, document processing, LLM integration
+- Custom software: portals, internal tools and systems built around real processes
+- Operational transformation: unifying disconnected systems and manual handoffs
+- Data & insight systems: dashboards, analytics and forecasting from fragmented data
+- Technology roadmaps: technical direction and investment priorities before budget is spent
+
+## Industries
+Agriculture, healthcare, financial services, SMEs & startups, research & education.
+
+## Products
+- CropShield AI: computer-vision decision support for agricultural monitoring
+- CardioRisk: machine-learning web app that helps doctors assess heart disease and stroke risk
+- LYF: digital product platform for simpler user journeys
+- Ghost Trader: trading and analysis product built around decision workflows
+
+## Contact
+- Website: https://ghostgrid.co.zw/
+- Contact form: https://ghostgrid.co.zw/#contact-us

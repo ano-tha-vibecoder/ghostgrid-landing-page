@@ -161,8 +161,9 @@ const Hero = () => {
         </motion.h1>
 
         <motion.p {...fadeUp(0.35)} className="mt-7 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg sm:leading-8">
-          GhostGrid is an AI and technology consultancy. We find where automation and intelligent systems create real value,
-          then design, build, and deploy them alongside your team.
+          GhostGrid is an AI consulting and technology company serving businesses in Zimbabwe and across Africa.
+          We find where automation and intelligent systems create real value, then design, build, and deploy them
+          alongside your team.
         </motion.p>
 
         <motion.div {...fadeUp(0.5)} className="mt-10 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row">

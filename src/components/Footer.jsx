@@ -4,12 +4,13 @@ import { motion } from "framer-motion";
 import { ArrowRight } from './icons';
 import Logo from "./Logo";
 
+// Add profile URLs to show the icons; empty entries stay hidden (dead "#" links hurt SEO)
 const socials = [
-  { icon: assets.linkedin_icon, label: "LinkedIn" },
-  { icon: assets.twitter_icon, label: "Twitter" },
-  { icon: assets.instagram_icon, label: "Instagram" },
-  { icon: assets.facebook_icon, label: "Facebook" },
-];
+  { icon: assets.linkedin_icon, label: "LinkedIn", url: "" },
+  { icon: assets.twitter_icon, label: "X (Twitter)", url: "" },
+  { icon: assets.instagram_icon, label: "Instagram", url: "" },
+  { icon: assets.facebook_icon, label: "Facebook", url: "" },
+].filter((s) => s.url);
 
 const Footer = () => {
   return (
@@ -77,11 +78,13 @@ const Footer = () => {
       <div className="mx-auto mt-12 flex max-w-6xl flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-6 text-sm text-slate-500 sm:flex-row">
         <p>© {new Date().getFullYear()} GhostGrid. All rights reserved.</p>
         <div className="flex items-center gap-2">
-          {socials.map(({ icon, label }) => (
+          {socials.map(({ icon, label, url }) => (
             <a
               key={label}
-              href="#"
-              aria-label={label}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`GhostGrid on ${label}`}
               className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] opacity-70 transition hover:border-[#29A6FF]/50 hover:opacity-100"
             >
               <img src={icon} alt="" className="h-4 w-4" />

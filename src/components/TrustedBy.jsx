@@ -25,9 +25,9 @@ const TrustedBy = () => {
         viewport={{ once: true }}
         className="mx-auto max-w-6xl"
       >
-        <p className="text-center text-xs font-bold uppercase tracking-[0.22em] text-slate-500">
+        <h2 className="text-center text-xs font-bold uppercase tracking-[0.22em] text-slate-500">
           Delivering value across industries
-        </p>
+        </h2>
 
         <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {industries.map(({ name, icon: Icon }, index) => (
