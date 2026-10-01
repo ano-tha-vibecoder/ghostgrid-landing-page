@@ -19,5 +19,5 @@ Agriculture, healthcare, financial services, SMEs & startups, research & educati
 - LendGrid: digital lending platform for loan applications, credit assessment, and repayment tracking
 
 ## Contact
-- Website: https://ghostgrid.co.zw/
-- Contact form: https://ghostgrid.co.zw/#contact-us
+- Website: https://www.ghostgrid.co.zw/
+- Contact form: https://www.ghostgrid.co.zw/#contact-us
