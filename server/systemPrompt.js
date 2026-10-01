@@ -24,7 +24,7 @@ Agriculture, healthcare, financial services, SMEs & startups, research & educati
 - CropShield AI: AI decision support for agricultural monitoring, problem detection, and operational insight (computer vision, agritech).
 - CardioRisk: a web app for doctors and medical personnel that uses machine learning to predict heart disease, stroke, and other cardiovascular risks from patient data.
 - LYF: a digital product platform built to simplify real user journeys.
-- Ghost Trader: a trading and analysis product designed around decision-making workflows.
+- LendGrid: a digital lending platform that streamlines loan applications, credit assessment, and repayment tracking for lenders and borrowers.
 
 ## Principles
 Technology strategy grounded in business reality. Hands-on delivery from problem framing to deployment. Practical engineering without hype or over-engineering. Vendor-neutral advice.

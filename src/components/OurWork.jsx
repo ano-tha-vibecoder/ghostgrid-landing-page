@@ -2,7 +2,7 @@ import React from "react";
 import Title from "./Title";
 import { motion } from "framer-motion";
 import { ArrowRight } from './icons';
-import { CropShieldVisual, LyfVisual, GhostTraderVisual, CardioRiskVisual } from './ProductVisuals';
+import { CropShieldVisual, LyfVisual, LendGridVisual, CardioRiskVisual } from './ProductVisuals';
 
 // Set `image` to a real screenshot (e.g. import from ../assets) to replace the illustrated placeholder
 
@@ -29,11 +29,11 @@ const workData = [
     Visual: LyfVisual,
   },
   {
-    title: "Ghost Trader",
-    tag: "Analytics · FinTech",
-    description: "A practical trading and analysis product designed around decision-making workflows and operational clarity.",
+    title: "LendGrid",
+    tag: "Lending platform · FinTech",
+    description: "A digital lending platform that streamlines loan applications, credit assessment, and repayment tracking for lenders and borrowers.",
     image: null,
-    Visual: GhostTraderVisual,
+    Visual: LendGridVisual,
   },
 ];
 

@@ -89,61 +89,62 @@ export const LyfVisual = () => (
   </div>
 )
 
-// Deterministic candle data so the chart is stable between renders
-const candles = [
-  [52, 58, 48, 60], [58, 55, 53, 62], [55, 61, 54, 64], [61, 66, 59, 68], [66, 63, 61, 69],
-  [63, 60, 57, 65], [60, 67, 58, 70], [67, 72, 65, 75], [72, 70, 68, 76], [70, 76, 69, 79],
-  [76, 81, 74, 84], [81, 78, 76, 84], [78, 84, 77, 87], [84, 89, 82, 92], [89, 87, 85, 93],
-  [87, 93, 86, 96],
+// Monthly repayment schedule: [label, paid]
+const repayments = [
+  ['Jan', true], ['Feb', true], ['Mar', true], ['Apr', true], ['May', false], ['Jun', false],
 ]
 
-export const GhostTraderVisual = () => {
-  const y = (v) => 200 - (v - 45) * 3.2
-  const ma = candles.map(([o, c], i) => `${i ? 'L' : 'M'}${20 + i * 23} ${y((o + c) / 2 - 2)}`).join(' ')
+export const LendGridVisual = () => (
+  <div className="relative h-full w-full overflow-hidden bg-[linear-gradient(160deg,#2E2208,#161006_55%,#05080F)]">
+    <div className="bg-grid absolute inset-0 opacity-40 [mask-image:none]" />
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_35%,rgba(251,191,36,0.25),transparent_55%)]" />
 
-  return (
-    <div className="relative h-full w-full overflow-hidden bg-[linear-gradient(160deg,#0B2A4A,#07121F_55%,#05080F)]">
-      <div className="bg-grid absolute inset-0 opacity-60 [mask-image:none]" />
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 390 240" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="gt-area" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0" stopColor="#29A6FF" stopOpacity="0.3" />
-            <stop offset="1" stopColor="#29A6FF" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path d={`${ma} L${20 + 15 * 23} 240 L20 240Z`} fill="url(#gt-area)" />
-        {candles.map(([o, c, l, h], i) => {
-          const up = c >= o
-          const x = 20 + i * 23
-          const color = up ? '#34D399' : '#F87171'
-          return (
-            <g key={i}>
-              <line x1={x} x2={x} y1={y(h)} y2={y(l)} stroke={color} strokeWidth="1.5" />
-              <rect x={x - 6} width="12" y={y(Math.max(o, c))} height={Math.max(3, Math.abs(y(o) - y(c)))} rx="1.5" fill={color} />
-            </g>
-          )
-        })}
-        <path d={ma} fill="none" stroke="#6BEBFF" strokeWidth="2" strokeLinecap="round" />
-        {/* signal markers */}
-        <g transform={`translate(${20 + 6 * 23} ${y(56)})`}>
-          <path d="M0 0 L-6 10 H6Z" fill="#34D399" />
-        </g>
-        <g transform={`translate(${20 + 11 * 23} ${y(86)})`}>
-          <path d="M0 0 L-6 -10 H6Z" fill="#F87171" />
-        </g>
-      </svg>
-
-      <div className="absolute left-4 top-4 flex items-center gap-2">
-        <Chip className="text-white">GGX / USD</Chip>
-        <Chip className="text-emerald-300">+2.4%</Chip>
-      </div>
-      <div className="absolute right-4 top-4 rounded-xl border border-[#29A6FF]/30 bg-black/50 px-3 py-2 backdrop-blur">
-        <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400">Signal</p>
-        <p className="text-xs font-extrabold text-emerald-300">Momentum · Buy</p>
+    {/* loan application card */}
+    <div className="absolute left-4 top-14 w-[46%] rounded-2xl border border-white/10 bg-black/50 p-3 backdrop-blur">
+      <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400">Loan request</p>
+      <p className="mt-0.5 text-lg font-extrabold leading-tight text-white">$2,500</p>
+      <p className="text-[9px] font-semibold text-slate-400">6 months · 4.5% / mo</p>
+      <div className="mt-2 space-y-1">
+        {[['ID verified', true], ['Income checked', true], ['Credit assessed', true]].map(([label, done]) => (
+          <div key={label} className="flex items-center gap-1.5">
+            <span className={`flex h-2.5 w-2.5 items-center justify-center rounded-full ${done ? 'bg-amber-400' : 'border border-white/30'}`} />
+            <span className="text-[9px] font-semibold text-slate-200">{label}</span>
+          </div>
+        ))}
       </div>
     </div>
-  )
-}
+
+    {/* credit score gauge */}
+    <div className="absolute right-4 top-14 w-[38%] rounded-2xl border border-amber-400/30 bg-black/50 p-3 backdrop-blur">
+      <svg viewBox="0 0 100 56" className="w-full">
+        <defs>
+          <linearGradient id="lg-gauge">
+            <stop offset="0" stopColor="#F87171" />
+            <stop offset="0.5" stopColor="#FBBF24" />
+            <stop offset="1" stopColor="#34D399" />
+          </linearGradient>
+        </defs>
+        <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="9" strokeLinecap="round" />
+        <path d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="url(#lg-gauge)" strokeWidth="9" strokeLinecap="round" strokeDasharray="125.7" strokeDashoffset="25" />
+      </svg>
+      <p className="-mt-1 text-center text-lg font-extrabold leading-none text-white">742</p>
+      <p className="mt-1 text-center text-[9px] font-bold uppercase tracking-wider text-amber-300">Credit score</p>
+    </div>
+
+    {/* repayment schedule */}
+    <div className="absolute bottom-10 left-4 right-4 flex items-end gap-1.5">
+      {repayments.map(([label, paid]) => (
+        <div key={label} className="flex-1 text-center">
+          <div className={`h-1.5 rounded-full ${paid ? 'bg-gradient-to-r from-amber-400 to-yellow-300' : 'bg-white/10'}`} />
+          <span className="mt-1 block text-[8px] font-semibold text-slate-400">{label}</span>
+        </div>
+      ))}
+    </div>
+
+    <Chip className="absolute left-4 top-4 text-amber-300">Application #LG-2187</Chip>
+    <Chip className="absolute right-4 top-4 text-emerald-300">Approved</Chip>
+  </div>
+)
 
 const riskFactors = [
   ['Blood pressure', 82, '#F43F5E'],
